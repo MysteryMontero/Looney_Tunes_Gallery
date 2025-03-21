@@ -1,9 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const galleryBtn = document.getElementById('gallery-btn');
-    const titleScreen = document.querySelector('.title-screen');
-    const galleryScreen = document.querySelector('.gallery-screen');
+    const charactersContainer = document.getElementById('characters-container');
+    const sortBtn = document.getElementById('sort-btn');
     
-    // Looney Tunes characters data structure (an array of objects)
+    // Looney Tunes characters data
     const characters = [
         { id: 1, name: "Bugs Bunny", year: 1940, type: "Rabbit", popularity: 10 },
         { id: 2, name: "Daffy Duck", year: 1937, type: "Duck", popularity: 8 },
@@ -14,10 +13,38 @@ document.addEventListener('DOMContentLoaded', function() {
         { id: 7, name: "Wile E. Coyote", year: 1949, type: "Coyote", popularity: 9 },
         { id: 8, name: "Road Runner", year: 1949, type: "Bird", popularity: 8 },
         { id: 9, name: "Tasmanian Devil", year: 1954, type: "Tasmanian Devil", popularity: 7 },
-        { id: 10, name: "Yosemite Sam", year: 1945, type: "Human", popularity: 6 }
+        { id: 10, name: "Yosemite Sam", year: 1945, type: "Human", popularity: 6 },
+        { id: 10, name: "Jeremy Callinan", year: 1945, type: "Human", popularity: 0}
     ];
     
-    // Sort function - Quick Sort implementation
+    // Display initial characters
+    displayCharacters(characters);
+    
+    // Sort button event listener
+    sortBtn.addEventListener('click', function() {
+        sortCharacters();
+    });
+    
+    // Function to display characters in the grid
+    function displayCharacters(charArray) {
+        charactersContainer.innerHTML = '';
+        
+        charArray.forEach(char => {
+            const characterCard = document.createElement('div');
+            characterCard.className = 'character-card';
+            
+            characterCard.innerHTML = `
+                <h3>${char.name}</h3>
+                <p>First Appeared: ${char.year}</p>
+                <p>Type: ${char.type}</p>
+                <p>Popularity: ${char.popularity}/10</p>
+            `;
+            
+            charactersContainer.appendChild(characterCard);
+        });
+    }
+    
+    // Quick Sort implementation
     function quickSort(arr, property, direction = 'asc') {
         if (arr.length <= 1) {
             return arr;
@@ -46,46 +73,6 @@ document.addEventListener('DOMContentLoaded', function() {
         return [...quickSort(less, property, direction), ...equal, ...quickSort(greater, property, direction)];
     }
     
-    // Function to display characters in the gallery
-    function displayCharacters(charArray) {
-        galleryScreen.innerHTML = `
-            <div class="gallery-header">
-                <h2>Looney Tunes Character Gallery</h2>
-                <div class="sort-controls">
-                    <label for="sort-by">Sort by:</label>
-                    <select id="sort-by">
-                        <option value="name">Name</option>
-                        <option value="year">Year</option>
-                        <option value="popularity">Popularity</option>
-                    </select>
-                    <select id="sort-direction">
-                        <option value="asc">Ascending</option>
-                        <option value="desc">Descending</option>
-                    </select>
-                    <button id="sort-btn">Sort</button>
-                    <button id="back-btn">Back to Title</button>
-                </div>
-            </div>
-            <div class="characters-grid">
-                ${charArray.map(char => `
-                    <div class="character-card">
-                        <h3>${char.name}</h3>
-                        <p>First Appeared: ${char.year}</p>
-                        <p>Type: ${char.type}</p>
-                        <p>Popularity: ${char.popularity}/10</p>
-                    </div>
-                `).join('')}
-            </div>
-        `;
-        
-        // Add event listeners to new elements
-        document.getElementById('sort-btn').addEventListener('click', sortCharacters);
-        document.getElementById('back-btn').addEventListener('click', function() {
-            galleryScreen.style.display = 'none';
-            titleScreen.style.display = 'block';
-        });
-    }
-    
     // Function to sort characters based on user selection
     function sortCharacters() {
         const sortBy = document.getElementById('sort-by').value;
@@ -104,12 +91,4 @@ document.addEventListener('DOMContentLoaded', function() {
             displayCharacters(sortedChars);
         }
     }
-    
-    // Event listener for the gallery button
-    galleryBtn.addEventListener('click', function() {
-        titleScreen.style.display = 'none';
-        galleryScreen.style.display = 'block';
-        displayCharacters(characters);
-    });
 });
-
