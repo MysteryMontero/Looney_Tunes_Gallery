@@ -4,17 +4,17 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Looney Tunes characters data
     const characters = [
-        { id: 1, name: "Bugs Bunny", year: 1940, type: "Rabbit", popularity: 10 },
-        { id: 2, name: "Daffy Duck", year: 1937, type: "Duck", popularity: 8 },
-        { id: 3, name: "Porky Pig", year: 1935, type: "Pig", popularity: 7 },
-        { id: 4, name: "Tweety Bird", year: 1942, type: "Canary", popularity: 7 },
-        { id: 5, name: "Sylvester", year: 1945, type: "Cat", popularity: 6 },
-        { id: 6, name: "Marvin the Martian", year: 1948, type: "Martian", popularity: 5 },
-        { id: 7, name: "Wile E. Coyote", year: 1949, type: "Coyote", popularity: 9 },
-        { id: 8, name: "Road Runner", year: 1949, type: "Bird", popularity: 8 },
-        { id: 9, name: "Tasmanian Devil", year: 1954, type: "Tasmanian Devil", popularity: 7 },
-        { id: 10, name: "Yosemite Sam", year: 1945, type: "Human", popularity: 6 },
-        { id: 10, name: "Jeremy Callinan", year: 1945, type: "Human", popularity: 0}
+        { id: 1, name: "Bugs Bunny", year: 1940, firstEpisode: "A Wild Hare", type: "Rabbit", popularity: 10 },
+        { id: 2, name: "Daffy Duck", year: 1937, firstEpisode: "Porky's Duck Hunt", type: "Duck", popularity: 8 },
+        { id: 3, name: "Porky Pig", year: 1935, firstEpisode: "I Haven't Got a Hat", type: "Pig", popularity: 7 },
+        { id: 4, name: "Tweety Bird", year: 1942, firstEpisode: "A Tale of Two Kitties", type: "Canary", popularity: 7 },
+        { id: 5, name: "Sylvester", year: 1945, firstEpisode: "Life with Feathers", type: "Cat", popularity: 6 },
+        { id: 6, name: "Marvin the Martian", year: 1948, firstEpisode: "Haredevil Hare", type: "Martian", popularity: 5 },
+        { id: 7, name: "Wile E. Coyote", year: 1949, firstEpisode: "Fast and Furry-ous", type: "Coyote", popularity: 9 },
+        { id: 8, name: "Road Runner", year: 1949, firstEpisode: "Fast and Furry-ous", type: "Bird", popularity: 8 },
+        { id: 9, name: "Tasmanian Devil", year: 1954, firstEpisode: "Devil May Hare", type: "Tasmanian Devil", popularity: 7 },
+        { id: 10, name: "Yosemite Sam", year: 1945, firstEpisode: "Hare Trigger", type: "Human", popularity: 6 },
+        { id: 11, name: "Jeremy Callinan", year: 1864, firstEpisode: "Call the Callinan", type: "Human", popularity: 0}
     ];
     
     // Display initial characters
@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
             characterCard.innerHTML = `
                 <h3>${char.name}</h3>
                 <p>First Appeared: ${char.year}</p>
+                <p>First Episode: "${char.firstEpisode}"</p>
                 <p>Type: ${char.type}</p>
                 <p>Popularity: ${char.popularity}/10</p>
             `;
@@ -90,5 +91,30 @@ document.addEventListener('DOMContentLoaded', function() {
             const sortedChars = quickSort([...characters], sortBy, sortDirection);
             displayCharacters(sortedChars);
         }
+    }
+
+    function displayCharacters(charArray) {
+        charactersContainer.innerHTML = '';
+        
+        charArray.forEach(char => {
+            const characterCard = document.createElement('div');
+            characterCard.className = 'character-card';
+            
+            characterCard.innerHTML = `
+                <h3>${char.name}</h3>
+                <p>First Appeared: ${char.year}</p>
+                <p>Type: ${char.type}</p>
+                <p>Popularity: ${char.popularity}/10</p>
+            `;
+            
+            // Add click event to navigate to character detail page
+            characterCard.addEventListener('click', () => {
+                // Store character data in localStorage to pass to next page
+                localStorage.setItem('selectedCharacter', JSON.stringify(char));
+                window.location.href = `character-detail.html?id=${char.id}`;
+            });
+            
+            charactersContainer.appendChild(characterCard);
+        });
     }
 });
