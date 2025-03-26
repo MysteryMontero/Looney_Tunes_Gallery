@@ -206,3 +206,37 @@ h1 {
     border-radius: 5px;
     margin-top: 20px;
 }
+
+
+
+.sort-status {
+    background-color: #fff3cd;
+    border: 1px solid #ffeeba;
+    color: #856404;
+    padding: 8px 12px;
+    border-radius: 4px;
+    margin: 10px 0;
+    font-style: italic;
+}
+
+.algorithm-comparison {
+    background-color: #d1ecf1;
+    border: 1px solid #bee5eb;
+    color: #0c5460;
+    padding: 10px 15px;
+    border-radius: 4px;
+    margin: 15px 0;
+}
+
+.algorithm-comparison h3 {
+    margin-top: 0;
+    color: #0c5460;
+}
+
+#compare-btn {
+    background-color: #28a745;
+}
+
+#compare-btn:hover {
+    background-color: #218838;
+}

@@ -11,18 +11,29 @@
         <div class="gallery-header">
             <h2>Looney Tunes Character Gallery</h2>
             <div class="sort-controls">
+                <label for="sort-algorithm">Algorithm:</label>
+                <select id="sort-algorithm">
+                    <option value="quickSort">Quick Sort</option>
+                    <option value="bubbleSort">Bubble Sort</option>
+                    <option value="insertionSort">Insertion Sort</option>
+                    <option value="selectionSort">Selection Sort</option>
+                </select>
+                
                 <label for="sort-by">Sort by:</label>
                 <select id="sort-by">
                     <option value="name">Name</option>
                     <option value="year">Year</option>
                     <option value="popularity">Popularity</option>
                 </select>
+                
                 <select id="sort-direction">
                     <option value="asc">Ascending</option>
                     <option value="desc">Descending</option>
                 </select>
+                
                 <button id="sort-btn">Sort</button>
-                <a href="Title.html" id="back-btn" class="button">Back to Title</a>
+                <button id="back-btn">Back to Title</button>
+                <button id="compare-btn">Compare All Algorithms</button>
             </div>
         </div>
         <div class="characters-grid" id="characters-container">
